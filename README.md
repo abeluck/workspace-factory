@@ -13,7 +13,6 @@ Managing multiple Eclipse workspaces is a PITA. Let's make it easier.
     workspace update /path/to/workspace-foo /path/to/workspace-bar
 ```
 
-
 **REQUIRES ECLIPSE JUNO**
 
 ## More words
@@ -29,9 +28,10 @@ multiple library projects. The answer is to use per-app workspaces. Managing
 Eclipse workspaces is a PITA though. Keeping settings synch between them is a
 real bitch.
 
-**Android Workspace Factory** can help make your life easier. It is essentially
-a glorified `cp` command to help create new eclipse workspaces from a
-pre-configured template.  ## Features
+**Eclipse Workspace Factory** is essentially a glorified `cp` command to help
+create new eclipse workspaces from a pre-configured template.
+
+## Features
 
 The included `android-workspace` is preconfigured with the following settings:
 
