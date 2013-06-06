@@ -1,4 +1,22 @@
-# Android Workspace Factory
+# Eclipse Workspace Factory
+
+Managing multiple Eclipse workspaces is a PITA. Let's make it easier.
+
+**Create a new blank workspace**
+```bash
+    workspace deploy android-template /path/to/my/new-workspace
+```
+
+**Update the settings from one workspace to another**
+
+```bash
+    workspace update /path/to/workspace-foo /path/to/workspace-bar
+```
+
+
+**REQUIRES ECLIPSE JUNO**
+
+## More words
 
 The Android build system sucks, particularly Eclipse+ADT's interaction with library projects.
 
@@ -21,9 +39,8 @@ The included `android-workspace` is preconfigured with the following settings:
 * Official Android Save Actions w/ Import Organizing
 * 1.6 as the default Java compiler
 
-## Usage
+### Usage
 
-**REQUIREs ECLIPSE JUNO**
 
 1. Clone this baby:
 
@@ -48,7 +65,7 @@ The included `android-workspace` is preconfigured with the following settings:
 4. Deploy a workspace
 
     ```bash
-        ./workspace-deploy my-workspace ~/src/new/project/path/
+        ./workspace deploy my-workspace ~/src/new/project/path/
     ```
 
 ## Recommended Android Project Layout

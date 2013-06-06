@@ -1,0 +1,102 @@
+#!/bin/bash
+##############################################################################
+#
+# workspace
+# -------------------
+# Deploy or update Eclipse workspaces with global settings intact.
+#
+# @author Abel Luck <abel@guardianproject.info>
+# @author Tomas Kramar <kramar.ttomas@gmail.com>
+# @date 6 June 2013
+# @version 0.2.0
+#-----------------------------------------------------------------------------
+# Changelog:
+# v0.2.0: renamed to 'workspace' and add update command
+##############################################################################
+# This code is free, you may do whatever you want with it.
+#
+function usage ()
+{
+    echo "$0 <command>"
+    echo "-------------------------------------------------------------------"
+    echo "Deploy or update Eclipse workspaces with global settings intact."
+    echo "------------------------------------------------------------------"
+    echo "<command>        deploy, update"
+    echo;
+    echo "$0 deploy <old-workspace> <new-workspace>"
+    echo "                 Deploy a new empty workspace with the settings from"
+    echo "                 the old-workspace intact."
+    echo;
+    echo "$0 update <from-workspace> <to-workspace>"
+    echo "                 Copy the settings from an existing workspace to"
+    echo "                 another workspace. Projects and project settings"
+    echo "                 remain untouched."
+    exit 1
+}
+
+function die {
+    echo $1
+    exit 1
+}
+function check_write() {
+    if [[ ! ( ( -d "$1" ) && ( -w "$1" ) ) ]]; then
+        die "$1 is not a writable directory"
+    fi
+}
+
+function check_read() {
+    if [[ ! ( ( -d "$1" ) && ( -r "$1" ) ) ]]; then
+        die "$1 is not a readable directory"
+    fi
+}
+
+## @param $1: from-wp
+## @param $2: to-wp
+# assumes perm checks
+function copy_settings() {
+    from=$1
+    to=$2
+    mkdir -p "$to/.metadata/.plugins/org.eclipse.core.runtime/" || die "could not create $to"
+    cp -R "$from/.metadata/.plugins/org.eclipse.core.runtime/.settings/" "$to/.metadata/.plugins/org.eclipse.core.runtime/" ||
+        die "could not copy settings"
+}
+
+## @param $1: from-wp
+## @param $2: to-wp
+function update() {
+    from=$1
+    to=$2
+    check_read $from
+    check_write $to
+    copy_settings $from $to
+    echo "workspace copied: $to, run eclipse -data $to"
+}
+
+## @param $1: old-wp
+## @param $2: new-wp
+function deploy() {
+    old="$1"
+    new="$2"
+    if [[ -d $new ]]; then
+        die "$new already exists. aborting"
+    fi
+    check_read $from
+    check_write $to
+    mkdir -p $new || die "could not create directory $new"
+    copy_settings $old $new
+    echo "workspace deployed: $to, run eclipse -data $to"
+}
+
+if [[ "$#" != "3" ]] ; then
+    usage
+fi
+
+CMD=$1
+
+case $CMD in
+    update ) update $2 $3;;
+    deploy ) deploy $2 $3;;
+    * ) usage;;
+esac
+
+
