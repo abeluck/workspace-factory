@@ -80,11 +80,10 @@ function deploy() {
     if [[ -d $new ]]; then
         die "$new already exists. aborting"
     fi
-    check_read $from
-    check_write $to
+    check_read $old
     mkdir -p $new || die "could not create directory $new"
     copy_settings $old $new
-    echo "workspace deployed: $to, run eclipse -data $to"
+    echo "workspace deployed: $new, run eclipse -data $new"
 }
 
 if [[ "$#" != "3" ]] ; then
