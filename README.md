@@ -2,18 +2,19 @@
 
 Managing multiple Eclipse workspaces is a PITA. Let's make it easier.
 
-**Create a new blank workspace**
+**Create a new blank workspace for Android dev** or
 ```bash
-    workspace deploy android-template /path/to/my/new-workspace
+    mkdir /path/to/my/new-workspace
+    workspace copy android-template /path/to/my/new-workspace
 ```
 
 **Update the settings from one workspace to another**
 
 ```bash
-    workspace update /path/to/workspace-foo /path/to/workspace-bar
+    workspace copy /path/to/workspace-foo /path/to/workspace-bar
 ```
 
-**REQUIRES ECLIPSE JUNO**
+**REQUIRES ECLIPSE >= JUNO**
 
 ## More words
 
@@ -65,7 +66,8 @@ The included `android-workspace` is preconfigured with the following settings:
 4. Deploy a workspace
 
     ```bash
-        ./workspace deploy my-workspace ~/src/new/project/path/
+        mkdir ~/src/new/project/path
+        ./workspace copy my-workspace ~/src/new/project/path/
     ```
 
 ## Recommended Android Project Layout
